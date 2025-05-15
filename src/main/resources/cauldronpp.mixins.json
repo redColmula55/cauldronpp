@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"package": "rc55.mc.cauldronpp.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"PotionEntityMixin",
+		"ArrowEntityMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

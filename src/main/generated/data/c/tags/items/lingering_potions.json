@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:lingering_potion",
+    "cauldronpp:lingering_potion"
+  ]
+}

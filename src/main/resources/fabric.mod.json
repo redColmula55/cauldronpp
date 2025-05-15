@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "cauldronpp",
+	"version": "${version}",
+	"name": "Cauldron++",
+	"description": "Cauldron++ is a mod which implments b1.9-pre2 brewing system back to modern minecraft.",
+	"authors": [
+		"redColmula55"
+	],
+	"contact": {
+		"homepage": "https://github.com/redColmula55",
+		"sources": "https://github.com/redColmula55/cauldronpp"
+	},
+	"license": "GPL-3.0 & CC-BY-NC-SA 4.0",
+	"icon": "assets/cauldronpp/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+          "rc55.mc.cauldronpp.Cauldronpp"
+		],
+		"client": [
+			"rc55.mc.cauldronpp.CauldronppClient"
+		],
+		"fabric-datagen": [
+			"rc55.mc.cauldronpp.CauldronppDataGenerator"
+		]
+	},
+	"mixins": [
+		"cauldronpp.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

@@ -3,7 +3,6 @@ package rc55.mc.cauldronpp.client.render;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.util.Identifier;
 import rc55.mc.cauldronpp.Cauldronpp;

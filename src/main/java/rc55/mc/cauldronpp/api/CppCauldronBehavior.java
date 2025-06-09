@@ -61,9 +61,6 @@ public interface CppCauldronBehavior {
             if (!world.isClient) {
                 ItemStack itemStack = stack.split(1);
                 BannerBlockEntity.loadFromItemStack(itemStack);
-//                if (!player.getAbilities().creativeMode) {
-//                    stack.decrement(1);
-//                }
 
                 if (stack.isEmpty()) {
                     player.setStackInHand(hand, itemStack);
@@ -87,14 +84,16 @@ public interface CppCauldronBehavior {
         if (!(stack.getItem() instanceof DyeableItem dyeableItem)) {
             return ActionResult.PASS;
         } else if (cauldron.canDecrease(1)){
-            if (!world.isClient) {
-                if (cauldron.getLiquidType() == CppCauldronLiquidType.WATER) {//清洗
-                    if (!dyeableItem.hasColor(stack)) return ActionResult.PASS;
+            if (cauldron.getLiquidType() == CppCauldronLiquidType.WATER) {//清洗
+                if (!dyeableItem.hasColor(stack)) return ActionResult.PASS;
+                if (!world.isClient) {
                     dyeableItem.removeColor(stack);
                     player.incrementStat(Stats.CLEAN_ARMOR);
                     cauldron.decreaseAmount(1);
                     update(world, pos, state, cauldron, player);
-                } else if (cauldron.getLiquidType() == CppCauldronLiquidType.COLORED_WATER) {//染色
+                }
+            } else if (cauldron.getLiquidType() == CppCauldronLiquidType.COLORED_WATER) {//染色
+                if (!world.isClient) {
                     if (dyeableItem.hasColor(stack)) {
                         dyeableItem.setColor(stack, getDyedColor(dyeableItem.getColor(stack), cauldron.getLiquidData()));
                     } else {

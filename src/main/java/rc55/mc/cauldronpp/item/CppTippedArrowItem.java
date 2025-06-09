@@ -16,7 +16,7 @@ import java.util.List;
 
 public class CppTippedArrowItem extends TippedArrowItem {
     public CppTippedArrowItem() {
-        super(new Settings().group(ItemGroup.BREWING));
+        super(new Settings().group(ItemGroup.COMBAT));
     }
 
     @Override

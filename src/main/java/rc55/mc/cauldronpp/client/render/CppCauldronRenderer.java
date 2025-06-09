@@ -9,8 +9,6 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -26,12 +24,12 @@ import java.util.Map;
 @Environment(EnvType.CLIENT)
 public class CppCauldronRenderer implements BlockEntityRenderer<CppCauldronBlockEntity> {
 
-    public static final SpriteIdentifier WATER_SPRITE_ID = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier(Cauldronpp.MODID, "entity/cauldron/inner_water.png"));
-    public static final SpriteIdentifier POTION_SPRITE_ID = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier("cauldronpp:block/cauldron_inner_potion"));
-    public static final SpriteIdentifier LAVA_SPRITE_ID = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier(Cauldronpp.MODID, "block/cauldron_inner_lava.png"));
-    public static final SpriteIdentifier SNOW_SPRITE_ID = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier(Cauldronpp.MODID, "block/cauldron_inner_snow"));
+    public static final Identifier WATER_SPRITE_ID = new Identifier(Cauldronpp.MODID, "textures/block/cauldron_inner_water.png");
+    public static final Identifier POTION_SPRITE_ID = new Identifier(Cauldronpp.MODID, "textures/block/cauldron_inner_potion.png");
+    public static final Identifier LAVA_SPRITE_ID = new Identifier(Cauldronpp.MODID, "textures/block/cauldron_inner_lava.png");
+    public static final Identifier SNOW_SPRITE_ID = new Identifier(Cauldronpp.MODID, "textures/block/cauldron_inner_snow.png");
 
-    public static final Map<CppCauldronLiquidType, SpriteIdentifier> SPRITES = Util.make(new EnumMap<>(CppCauldronLiquidType.class), map -> {
+    public static final Map<CppCauldronLiquidType, Identifier> SPRITES = Util.make(new EnumMap<>(CppCauldronLiquidType.class), map -> {
         map.put(CppCauldronLiquidType.WATER, WATER_SPRITE_ID);
         map.put(CppCauldronLiquidType.POTION, POTION_SPRITE_ID);
         map.put(CppCauldronLiquidType.LAVA, LAVA_SPRITE_ID);
@@ -69,13 +67,13 @@ public class CppCauldronRenderer implements BlockEntityRenderer<CppCauldronBlock
             }
         }
     }
-    private void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, SpriteIdentifier sprite, int light, int overlay, int color, double height) {
+    private void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, Identifier spriteId, int light, int overlay, int color, double height) {
         matrices.push();
 
         matrices.translate(1.25, height, 1.25);
         matrices.scale(3.0f, 1.0f, 3.0f);
 
-        VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayer.getEntitySolid(new Identifier("cauldronpp:textures/block/cauldron_inner_water")));
+        VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayer.getEntitySolid(spriteId));
 
         if (color == -1) {//没有颜色
             this.model.render(matrices, consumer, light, overlay);

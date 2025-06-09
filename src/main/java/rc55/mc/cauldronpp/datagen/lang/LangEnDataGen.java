@@ -22,6 +22,10 @@ public class LangEnDataGen extends FabricLanguageProvider {
     public void generateTranslations(TranslationBuilder builder) {
         builder.add(CauldronppBlocks.CPP_CAULDRON, "Cauldron(Legacy)");
         builder.add(CauldronppItems.WATER_BOTTLE, "Water Bottle");
-        PotionHelper.generatePotionNameTranslation(builder, potionPrefixesTranslation, "%s Potion", "Splash %s Potion", "Lingering %s Potion", "%s Arrow");
+        PotionHelper.generatePotionNameTranslation(builder, potionPrefixesTranslation, "Potion", "Splash Potion", "Lingering Potion", "Tipped Arrow");
+        builder.add(CauldronppItems.CPP_POTION, "%s Potion");
+        builder.add(CauldronppItems.CPP_SPLASH_POTION, "%s Splash Potion");
+        builder.add(CauldronppItems.CPP_LINGERING_POTION, "%s Lingering Potion");
+        builder.add(CauldronppItems.CPP_TIPPED_ARROW, "%s Arrow");
     }
 }

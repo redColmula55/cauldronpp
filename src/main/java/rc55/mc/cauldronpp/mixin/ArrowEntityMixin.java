@@ -27,9 +27,9 @@ public abstract class ArrowEntityMixin {
     @Shadow protected abstract void initColor();
     @Shadow protected abstract void setColor(int color);
     @Final @Shadow private Set<StatusEffectInstance> effects;
-
+    //该实体所包含的箭矢物品堆
     @Unique private ItemStack arrow;
-
+    //设置药水箭属性
     @Inject(at = @At("TAIL"), method = "initFromStack")
     public void initFromStack(ItemStack stack, CallbackInfo ci) {
         if (stack.isOf(CauldronppItems.CPP_TIPPED_ARROW)) {
@@ -48,16 +48,16 @@ public abstract class ArrowEntityMixin {
         }
         this.arrow = stack;
     }
-
+    //捡起地面上的箭矢
     @Inject(at = @At("HEAD"), method = "asItemStack", cancellable = true)
     public void asItemStack(CallbackInfoReturnable<ItemStack> cir) {
         if (this.arrow.isOf(CauldronppItems.CPP_TIPPED_ARROW)) {
             ItemStack stack = new ItemStack(CauldronppItems.CPP_TIPPED_ARROW);
             stack.setNbt(this.arrow.getOrCreateNbt());
-            cir.setReturnValue(stack);
+            cir.setReturnValue(stack);//这里不知道为什么只能这样，直接用this.arrow不行
         }
     }
-
+    //写入箭矢物品nbt
     @Inject(at = @At("HEAD"), method = "writeCustomDataToNbt")
     public void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
         NbtCompound nbtCompound = new NbtCompound();
@@ -65,7 +65,7 @@ public abstract class ArrowEntityMixin {
         nbtCompound.putString("id", Registries.ITEM.getId(this.arrow.getItem()).toString());
         nbt.put("Item", nbtCompound);
     }
-
+    //读取箭矢物品nbt
     @Inject(at = @At("HEAD"), method = "readCustomDataFromNbt")
     public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
         NbtCompound nbtCompound = nbt.getCompound("Item");

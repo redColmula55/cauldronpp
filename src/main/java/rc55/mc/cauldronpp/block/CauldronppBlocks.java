@@ -12,7 +12,8 @@ import rc55.mc.cauldronpp.Cauldronpp;
 
 public class CauldronppBlocks {
 
-    public static final Block CPP_CAULDRON = register("cauldron", new CppCauldronBlock(AbstractBlock.Settings.copy(Blocks.CAULDRON)));
+    public static final Block CPP_CAULDRON = register("cauldron", new CppCauldronBlock(AbstractBlock.Settings.copy(Blocks.CAULDRON)
+            .luminance(state -> state.get(CppCauldronBlock.EMITS_LIGHT) ? 15 : 0)));
 
     private static Block register(String id, Block block) {
         Registry.register(Registries.ITEM, new Identifier(Cauldronpp.MODID, id), new BlockItem(block, new Item.Settings()));

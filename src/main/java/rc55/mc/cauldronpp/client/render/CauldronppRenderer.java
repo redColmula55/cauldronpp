@@ -18,27 +18,14 @@ public class CauldronppRenderer {
         Cauldronpp.LOGGER.info("Cauldron++ renderer added.");
     }
 
-    public static EntityModelLayer CAULDRON_INNER = new EntityModelLayer(new Identifier(Cauldronpp.MODID, "cpp_cauldron"), "main");
+    public static EntityModelLayer CAULDRON_INNER = new EntityModelLayer(new Identifier(Cauldronpp.MODID, "cauldron"), "main");
 
     private static void regColoredItem() {
         ColorProviderRegistry.ITEM.register(CppPotionItem::getColor, CauldronppItems.CPP_POTION, CauldronppItems.CPP_SPLASH_POTION,
                 CauldronppItems.CPP_LINGERING_POTION, CauldronppItems.CPP_TIPPED_ARROW);
         ColorProviderRegistry.ITEM.register(WaterBottleItem::getColor, CauldronppItems.WATER_BOTTLE);
-
-//        ColorProviderRegistry.BLOCK.register(((state, world, pos, tintIndex) -> {
-//            if (world != null) {
-//                BlockEntity blockEntity = world.getBlockEntity(pos);
-//                if (blockEntity instanceof CppCauldronBlockEntity cauldron) {
-//                    int color = PotionHelper.getPotionColor(cauldron.getPotionData());
-//                    return tintIndex == 0 ? -1 : color;
-//                }
-//            }
-//            return -1;
-//        }), CauldronppBlocks.CPP_CAULDRON);
-
     }
     private static void regBlockEntityRenderer() {
-        //BlockEntityRendererRegistry.register(CauldronppBlockEntityTypes.CAULDRON, CppCauldronRenderer::new);
         BlockEntityRendererFactories.register(CauldronppBlockEntityTypes.CAULDRON, CppCauldronRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(CAULDRON_INNER, CppCauldronRenderer::getTexturedModelData);
     }

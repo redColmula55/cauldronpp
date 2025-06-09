@@ -27,26 +27,26 @@ public class CauldronppItems {
     public static void regItem() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
             entries.add(WATER_BOTTLE);
-            entries.add(PotionHelper.getPotionItem(0, 32767));
-            entries.add(PotionHelper.getPotionItem(0, 16123));
-            entries.add(PotionHelper.getPotionItem(0, 81621));
-            entries.add(PotionHelper.getPotionItem(0, 55577));
-            entries.add(PotionHelper.getPotionItem(1, 32767));
-            entries.add(PotionHelper.getPotionItem(1, 16123));
-            entries.add(PotionHelper.getPotionItem(1, 81621));
-            entries.add(PotionHelper.getPotionItem(1, 55577));
-            entries.add(PotionHelper.getPotionItem(2, 32767));
-            entries.add(PotionHelper.getPotionItem(2, 16123));
-            entries.add(PotionHelper.getPotionItem(2, 81621));
-            entries.add(PotionHelper.getPotionItem(2, 55577));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.DEFAULT_TYPE, 32767));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.DEFAULT_TYPE, 16123));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.DEFAULT_TYPE, 81621));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.DEFAULT_TYPE, 55577));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.SPLASH_TYPE, 32767));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.SPLASH_TYPE, 16123));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.SPLASH_TYPE, 81621));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.SPLASH_TYPE, 55577));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.LINGERING_TYPE, 32767));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.LINGERING_TYPE, 16123));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.LINGERING_TYPE, 81621));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.LINGERING_TYPE, 55577));
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(entries -> entries.add(CauldronppBlocks.CPP_CAULDRON));
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> entries.add(CauldronppBlocks.CPP_CAULDRON));
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
-            entries.add(PotionHelper.getPotionItem(3, 32767));
-            entries.add(PotionHelper.getPotionItem(3, 16123));
-            entries.add(PotionHelper.getPotionItem(3, 81621));
-            entries.add(PotionHelper.getPotionItem(3, 55577));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.ARROW_TYPE, 32767));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.ARROW_TYPE, 16123));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.ARROW_TYPE, 81621));
+            entries.add(PotionHelper.getPotionItem(PotionHelper.ARROW_TYPE, 55577));
         });
         Cauldronpp.LOGGER.info("Cauldron++ items registered.");
     }

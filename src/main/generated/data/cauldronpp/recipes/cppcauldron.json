@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "cppcauldron",
+  "ingredients": [
+    {
+      "item": "minecraft:cauldron"
+    },
+    {
+      "item": "minecraft:brewing_stand"
+    }
+  ],
+  "result": {
+    "item": "cauldronpp:cauldron"
+  }
+}

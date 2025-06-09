@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "cauldronpp:cppcauldron2"
+    ]
+  },
+  "criteria": {
+    "has_brewing_stand": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:brewing_stand"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "cauldronpp:cppcauldron2"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_brewing_stand",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#cauldronpp:cauldron_brewing_materials/potion",
+    "#cauldronpp:cauldron_brewing_materials/potion_type"
+  ]
+}

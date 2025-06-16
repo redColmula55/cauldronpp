@@ -7,10 +7,10 @@ Cauldron++ is a small mod which implements Beta 1.9-pre2 brewing system back int
 If you find any bug, please report it in the issues page. Please describe how the bug was triggered and what it affects so that we can patch it as fast as possible. We accept Chinese / English issues.
 <hr>
 
-* 适用MC版本：1.20.1 <br>
-Minecraft version: 1.20.1 <br>
-* Fabric版本：0.16.10或以上 <br>
-Fabric version: 0.16.10 or greater <br>
+* 适用MC版本：1.18.2 <br>
+Minecraft version: 1.18.2 <br>
+* Fabric版本：0.14.9或以上 <br>
+Fabric version: 0.14.9 or greater <br>
 * 需要Fabric API <br>
 Needs Fabric API
 <hr>

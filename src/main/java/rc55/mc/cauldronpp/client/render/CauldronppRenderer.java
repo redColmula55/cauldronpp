@@ -18,7 +18,7 @@ public class CauldronppRenderer {
         Cauldronpp.LOGGER.info("Cauldron++ renderer added.");
     }
 
-    public static EntityModelLayer CAULDRON_INNER = new EntityModelLayer(new Identifier(Cauldronpp.MODID, "cauldron"), "main");
+    public static EntityModelLayer CAULDRON_INNER = new EntityModelLayer(Identifier.of(Cauldronpp.MODID, "cauldron"), "main");
 
     private static void regColoredItem() {
         ColorProviderRegistry.ITEM.register(CppPotionItem::getColor, CauldronppItems.CPP_POTION, CauldronppItems.CPP_SPLASH_POTION,

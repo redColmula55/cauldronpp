@@ -16,9 +16,9 @@ public class CauldronppItemTags {
     public static final TagKey<Item> TIPPED_ARROWS = registerC("tipped_arrows");
 
     private static TagKey<Item> register(String id) {
-        return TagKey.of(RegistryKeys.ITEM, new Identifier(Cauldronpp.MODID, id));
+        return TagKey.of(RegistryKeys.ITEM, Identifier.of(Cauldronpp.MODID, id));
     }
     private static TagKey<Item> registerC(String id) {
-        return TagKey.of(RegistryKeys.ITEM, new Identifier("c", id));
+        return TagKey.of(RegistryKeys.ITEM, Identifier.of("c", id));
     }
 }

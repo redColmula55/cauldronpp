@@ -1,20 +1,22 @@
 package rc55.mc.cauldronpp.api;
 
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
+import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.potion.PotionUtil;
-import net.minecraft.registry.Registries;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.Potions;
+import net.minecraft.registry.entry.RegistryEntry;
 import rc55.mc.cauldronpp.item.CauldronppItems;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PotionHelper {
     //酿造材料（地狱疣单独计算）
@@ -32,8 +34,8 @@ public class PotionHelper {
 
     //特别鸣谢 wwwweeeeee团队及retromcp项目 解析b1.9-pre2酿造逻辑
     //special thanks to wwwweeeeee team and the retromcp project
-    public static final Map<StatusEffect, String> potionRequirements = new HashMap<>();//出现特定效果需要满足的条件
-    public static final Map<StatusEffect, String> potionAmplifiers = new HashMap<>();//提升效果等级的条件
+    public static final Map<RegistryEntry<StatusEffect>, String> potionRequirements = new HashMap<>();//出现特定效果需要满足的条件
+    public static final Map<RegistryEntry<StatusEffect>, String> potionAmplifiers = new HashMap<>();//提升效果等级的条件
     //二进制数相关计算
     private static int getNumberInBinary(int index, int i1, int i2, int i3, int i4, int i5) {//返回二进制数index的i1~i5位组成的二进制数
         return (checkFlag(index, i1) ? 16 : 0) | (checkFlag(index, i2) ? 8 : 0) | (checkFlag(index, i3) ? 4 : 0) | (checkFlag(index, i4) ? 2 : 0) | (checkFlag(index, i5) ? 1 : 0);
@@ -361,14 +363,15 @@ public class PotionHelper {
     //获取对应药水的所有效果
     public static List<StatusEffectInstance> getEffects(int potionData) {
         ArrayList<StatusEffectInstance> effects = new ArrayList<>();
-        for (StatusEffect effect : Registries.STATUS_EFFECT) {
+        for (RegistryEntry<StatusEffect> registryEntry : potionRequirements.keySet()) {
+            StatusEffect effect = registryEntry.value();
             if (effect != null) {
-                String effectRequirement = potionRequirements.get(effect);
+                String effectRequirement = potionRequirements.get(registryEntry);
                 if (effectRequirement != null) {
                     int duration = getEffectMultiplier(effectRequirement, 0, effectRequirement.length(), potionData);
                     if (duration > 0) {
                         int amplifier = 0;
-                        String amplifierRequirement = potionAmplifiers.get(effect);
+                        String amplifierRequirement = potionAmplifiers.get(registryEntry);
                         if (amplifierRequirement != null) {
                             amplifier = getEffectMultiplier(amplifierRequirement, 0, amplifierRequirement.length(), potionData);
                             if (amplifier < 0) {
@@ -385,7 +388,7 @@ public class PotionHelper {
                             }
                         }
 
-                        effects.add(new StatusEffectInstance(effect, duration, amplifier));
+                        effects.add(new StatusEffectInstance(registryEntry, duration, amplifier));
                     }
                 }
             }
@@ -454,6 +457,10 @@ public class PotionHelper {
         potionRequirements.put(StatusEffects.BAD_OMEN, "6+7-13 & >9");
         potionRequirements.put(StatusEffects.DARKNESS, "!9 & =0=6=11");
         potionRequirements.put(StatusEffects.GLOWING, "6>13 & -1+4 & !14-!0+!7");
+        potionRequirements.put(StatusEffects.OOZING, "<6<5<1 & +9-8+!12 | =14-7-2>13 & -1*5+6");
+        potionRequirements.put(StatusEffects.WEAVING, "2>3 & +5+8-11 & !10 & !14");
+        potionRequirements.put(StatusEffects.WIND_CHARGED, "-3-7-12 & 5+13 & !0");
+        potionRequirements.put(StatusEffects.INFESTED, "=5+6+9 & !11 | >9 & 3+4 & !8 & 10*6-1");
         //提升效果等级的需求
         potionAmplifiers.put(StatusEffects.WITHER, "6-5 & !1 & =8");
         potionAmplifiers.put(StatusEffects.HEALTH_BOOST, "!5 & !3 & =11");
@@ -496,12 +503,18 @@ public class PotionHelper {
             case ARROW_TYPE -> stack = new ItemStack(CauldronppItems.CPP_TIPPED_ARROW, amount);
             default -> stack = new ItemStack(CauldronppItems.CPP_POTION, amount);
         }
-        PotionUtil.setCustomPotionEffects(stack, getEffects(potionData));
-        stack.getOrCreateNbt().putInt("CustomPotionColor", getPotionColor(potionData));
-        stack.getOrCreateNbt().putInt("PotionData", potionData);
+        NbtCompound nbt = new NbtCompound();
+        nbt.putInt("PotionData", potionData);
+        stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+        stack.set(DataComponentTypes.POTION_CONTENTS, new PotionContentsComponent(Optional.empty(), Optional.of(getPotionColor(potionData)), getEffects(potionData)));
         return stack;
     }
     public static ItemStack getPotionItem(byte potionType, int potionData) {
         return getPotionItem(potionType, potionData, 1);
+    }
+    //是否为水瓶
+    public static boolean isWaterBottle(ItemStack stack) {
+        PotionContentsComponent component = stack.getOrDefault(DataComponentTypes.POTION_CONTENTS, PotionContentsComponent.DEFAULT);
+        return stack.isOf(CauldronppItems.WATER_BOTTLE) || (stack.isOf(Items.POTION) && component.matches(Potions.WATER));
     }
 }

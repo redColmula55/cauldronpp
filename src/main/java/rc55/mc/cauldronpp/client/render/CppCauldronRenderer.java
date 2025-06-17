@@ -26,10 +26,10 @@ import java.util.Map;
 @Environment(EnvType.CLIENT)
 public class CppCauldronRenderer implements BlockEntityRenderer<CppCauldronBlockEntity> {
 
-    public static final SpriteIdentifier WATER_SPRITE_ID = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier(Cauldronpp.MODID, "block/cauldron_inner_water"));
-    public static final SpriteIdentifier POTION_SPRITE_ID = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier(Cauldronpp.MODID, "block/cauldron_inner_potion"));
-    public static final SpriteIdentifier LAVA_SPRITE_ID = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier(Cauldronpp.MODID, "block/cauldron_inner_lava"));
-    public static final SpriteIdentifier SNOW_SPRITE_ID = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier(Cauldronpp.MODID, "block/cauldron_inner_snow"));
+    public static final SpriteIdentifier WATER_SPRITE_ID = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, Identifier.of(Cauldronpp.MODID, "block/cauldron_inner_water"));
+    public static final SpriteIdentifier POTION_SPRITE_ID = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, Identifier.of(Cauldronpp.MODID, "block/cauldron_inner_potion"));
+    public static final SpriteIdentifier LAVA_SPRITE_ID = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, Identifier.of(Cauldronpp.MODID, "block/cauldron_inner_lava"));
+    public static final SpriteIdentifier SNOW_SPRITE_ID = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, Identifier.of(Cauldronpp.MODID, "block/cauldron_inner_snow"));
 
     public static final Map<CppCauldronLiquidType, SpriteIdentifier> SPRITES = Util.make(new EnumMap<>(CppCauldronLiquidType.class), map -> {
         map.put(CppCauldronLiquidType.WATER, WATER_SPRITE_ID);
@@ -83,7 +83,7 @@ public class CppCauldronRenderer implements BlockEntityRenderer<CppCauldronBlock
             float r = (color >> 16 & 0xff) / 255.0f;
             float g = (color >> 8 & 0xff) / 255.0f;
             float b = (color & 0xff) / 255.0f;
-            this.model.render(matrices, consumer, light, overlay, r, g, b, -1);
+            this.model.render(matrices, consumer, light, overlay, color);
         }
 
         matrices.pop();

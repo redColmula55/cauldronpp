@@ -1,5 +1,6 @@
 package rc55.mc.cauldronpp.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -56,6 +57,11 @@ public class CppCauldronBlock extends BlockWithEntity {
     }
 
     @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return createCodec(CppCauldronBlock::new);
+    }
+
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(EMITS_LIGHT);
     }
@@ -82,7 +88,7 @@ public class CppCauldronBlock extends BlockWithEntity {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, CauldronppBlockEntityTypes.CAULDRON, CppCauldronBlockEntity::tick);
+        return validateTicker(type, CauldronppBlockEntityTypes.CAULDRON, CppCauldronBlockEntity::tick);
     }
     //比较器
     @Override
@@ -95,7 +101,8 @@ public class CppCauldronBlock extends BlockWithEntity {
     }
     //右键
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        Hand hand = player.getActiveHand();
         Optional<CppCauldronBlockEntity> optional = world.getBlockEntity(pos, CauldronppBlockEntityTypes.CAULDRON);
         if (optional.isPresent()) {
             CppCauldronBlockEntity cauldron = optional.get();

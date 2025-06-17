@@ -16,11 +16,11 @@ public class CauldronppBlocks {
             .luminance(state -> state.get(CppCauldronBlock.EMITS_LIGHT) ? 15 : 0)));
 
     private static Block register(String id, Block block) {
-        Registry.register(Registries.ITEM, new Identifier(Cauldronpp.MODID, id), new BlockItem(block, new Item.Settings()));
+        Registry.register(Registries.ITEM, Identifier.of(Cauldronpp.MODID, id), new BlockItem(block, new Item.Settings()));
         return registerNoItem(id, block);
     }
     private static Block registerNoItem(String id, Block block) {
-        return Registry.register(Registries.BLOCK, new Identifier(Cauldronpp.MODID, id), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(Cauldronpp.MODID, id), block);
     }
     public static void regBlock() {
         Cauldronpp.LOGGER.info("Cauldron++ blocks registered.");

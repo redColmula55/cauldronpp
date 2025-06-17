@@ -2,13 +2,17 @@ package rc55.mc.cauldronpp.datagen.lang;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.registry.RegistryWrapper;
 import rc55.mc.cauldronpp.block.CauldronppBlocks;
 import rc55.mc.cauldronpp.api.PotionHelper;
 import rc55.mc.cauldronpp.item.CauldronppItems;
 
+import java.util.concurrent.CompletableFuture;
+
 public class LangZhCnDataGen extends FabricLanguageProvider {
-    public LangZhCnDataGen(FabricDataOutput dataOutput) {
-        super(dataOutput, "zh_cn");
+
+    public LangZhCnDataGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(dataOutput, "zh_cn", registryLookup);
     }
 
     private static final String[] potionPrefixesTranslation = new String[]{"平凡的", "枯燥的", "平淡的", "清澈的",
@@ -19,7 +23,7 @@ public class LangZhCnDataGen extends FabricLanguageProvider {
             "苛刻的", "辛辣的", "多毛的", "发臭的"};
 
     @Override
-    public void generateTranslations(TranslationBuilder builder) {
+    public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder builder) {
         builder.add("modmenu.nameTranslation.cauldronpp", "Cauldron++");
         builder.add("modmenu.descriptionTranslation.cauldronpp", "Cauldron++是一个小型mod，旨在高版本中还原Beta 1.9-pre2中使用炼药锅的酿造系统。");
         builder.add(CauldronppBlocks.CPP_CAULDRON, "炼药锅（旧版）");

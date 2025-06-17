@@ -12,8 +12,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.potion.PotionUtil;
-import net.minecraft.potion.Potions;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -41,16 +40,16 @@ public class CppCauldronBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.readNbt(nbt, registryLookup);
         this.liquidData = nbt.getInt("LiquidData");
         this.potionType = nbt.getByte("PotionType");
         this.amount = nbt.getInt("Level");
         this.liquidType = CppCauldronLiquidType.byId(nbt.getInt("LiquidType"));
     }
     @Override
-    public void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
+    public void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.writeNbt(nbt, registryLookup);
         nbt.putInt("LiquidData", this.liquidData);
         nbt.putByte("PotionType", this.potionType);
         nbt.putInt("Level", this.amount);
@@ -64,8 +63,8 @@ public class CppCauldronBlockEntity extends BlockEntity {
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        return this.createNbt();
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
+        return this.createNbt(registryLookup);
     }
     //更新锅内流体状态
     public ActionResult updateLiquid(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, ItemStack stack) {
@@ -85,7 +84,7 @@ public class CppCauldronBlockEntity extends BlockEntity {
             world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS);
             this.markDirty();
             return ActionResult.SUCCESS;
-        } else if (((stack.isOf(Items.POTION) && PotionUtil.getPotion(stack) == Potions.WATER) || stack.isOf(CauldronppItems.WATER_BOTTLE)) && !this.isFull() && (this.canBrew() || this.isEmpty())) {
+        } else if (PotionHelper.isWaterBottle(stack) && !this.isFull() && (this.canBrew() || this.isEmpty())) {
             //加水（水瓶）
             if (this.isEmpty()) this.liquidType = CppCauldronLiquidType.WATER;
             this.increaseAmount(CppCauldronBehavior.BOTTLE_LEVEL);

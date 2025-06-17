@@ -2,13 +2,17 @@ package rc55.mc.cauldronpp.datagen.lang;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.registry.RegistryWrapper;
 import rc55.mc.cauldronpp.block.CauldronppBlocks;
 import rc55.mc.cauldronpp.api.PotionHelper;
 import rc55.mc.cauldronpp.item.CauldronppItems;
 
+import java.util.concurrent.CompletableFuture;
+
 public class LangEnDataGen extends FabricLanguageProvider {
-    public LangEnDataGen(FabricDataOutput dataOutput) {
-        super(dataOutput);
+
+    public LangEnDataGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(dataOutput, registryLookup);
     }
 
     private static final String[] potionPrefixesTranslation = new String[]{"Mundane", "Uninteresting", "Bland", "Clear",
@@ -19,7 +23,7 @@ public class LangEnDataGen extends FabricLanguageProvider {
             "Harsh", "Acrid", "Gross", "Stinky"};
 
     @Override
-    public void generateTranslations(TranslationBuilder builder) {
+    public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder builder) {
         builder.add(CauldronppBlocks.CPP_CAULDRON, "Cauldron(Legacy)");
         builder.add(CauldronppItems.WATER_BOTTLE, "Water Bottle");
         PotionHelper.generatePotionNameTranslation(builder, potionPrefixesTranslation, "Potion", "Splash Potion", "Lingering Potion", "Tipped Arrow");

@@ -16,7 +16,7 @@
     "aaa"
   ],
   "result": {
-    "item": "cauldronpp:cauldron"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "cauldronpp:cauldron"
+  }
 }
